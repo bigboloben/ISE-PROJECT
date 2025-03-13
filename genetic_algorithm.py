@@ -1,18 +1,6 @@
 import numpy as np
-import pandas as pd
-import tensorflow as tf
 import random
-from tensorflow import keras
-from sklearn.model_selection import train_test_split
 import time
-
-
-def load_and_preprocess_data(file_path, target_column):
-    df = pd.read_csv(file_path)
-    X = df.drop(columns=[target_column])
-    y = df[target_column]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    return X_train, X_test, y_train, y_test
 
 
 def initialize_population(X_test, sensitive_features, population_size):

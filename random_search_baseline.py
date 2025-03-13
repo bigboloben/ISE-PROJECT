@@ -1,17 +1,5 @@
-import pandas as pd
 import numpy as np
-import tensorflow as tf
-from tensorflow import keras
 import time
-
-
-def load_and_preprocess_data(file_path, target_column):
-    df = pd.read_csv(file_path)
-    X = df.drop(columns=[target_column])
-    y = df[target_column]
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    return X_train, X_test, y_train, y_test
 
 
 def batch_generate_sample_pairs(X_test, sensitive_columns, non_sensitive_columns, batch_size):
@@ -152,3 +140,4 @@ def calculate_idi_ratio(model, X_test, sensitive_columns, non_sensitive_columns,
     }
 
     return results
+

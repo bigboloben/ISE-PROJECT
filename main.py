@@ -1,11 +1,9 @@
+import argparse
 import numpy as np
 import pandas as pd
-import tensorflow as tf
-import random
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
 from scipy import stats
-import time
 import matplotlib.pyplot as plt
 import genetic_algorithm
 import random_search_baseline
@@ -444,41 +442,66 @@ def main(file_paths, targets, sensitive_columns_list, num_trials=3, population_s
 
 
 if __name__ == "__main__":
-    # Configure datasets
-    file_paths = []
-    targets = []
-    sensitive_columns_list = []
+    if __name__ == "__main__":
+        # Set up command-line argument parsing
+        parser = argparse.ArgumentParser(description='AI Model Fairness Testing Tool')
+        parser.add_argument('--trials', type=int, default=30, help='Number of trials to run (default: 30)')
+        parser.add_argument('--population', type=int, default=50, help='Population size for GA (default: 50)')
+        parser.add_argument('--generations', type=int, default=100, help='Number of generations for GA (default: 100)')
+        parser.add_argument('--dataset', type=str, help='Run only on a specific dataset (optional)')
+        args = parser.parse_args()
 
-    file_paths.append('processed_adult')
-    targets.append('Class-label')
-    sensitive_columns_list.append(['race', 'gender', 'age'])
+        # Configure datasets
+        file_paths = []
+        targets = []
+        sensitive_columns_list = []
 
-    file_paths.append('processed_communities_crime')
-    targets.append('class')
-    sensitive_columns_list.append(['Black', 'FemalePctDiv'])
+        file_paths.append('processed_adult')
+        targets.append('Class-label')
+        sensitive_columns_list.append(['race', 'gender', 'age'])
 
-    file_paths.append('processed_compas')
-    targets.append('Recidivism')
-    sensitive_columns_list.append(['Sex', 'Race'])
+        file_paths.append('processed_communities_crime')
+        targets.append('class')
+        sensitive_columns_list.append(['Black', 'FemalePctDiv'])
 
-    file_paths.append('processed_credit')
-    targets.append('class')
-    sensitive_columns_list.append(['SEX', 'AGE', 'MARRIAGE'])
+        file_paths.append('processed_compas')
+        targets.append('Recidivism')
+        sensitive_columns_list.append(['Sex', 'Race'])
 
-    file_paths.append('processed_dutch')
-    targets.append('occupation')
-    sensitive_columns_list.append(['sex', 'age'])
+        file_paths.append('processed_credit')
+        targets.append('class')
+        sensitive_columns_list.append(['SEX', 'AGE', 'MARRIAGE'])
 
-    file_paths.append('processed_german')
-    targets.append('CREDITRATING')
-    sensitive_columns_list.append(['PersonStatusSex', 'AgeInYears'])
+        file_paths.append('processed_dutch')
+        targets.append('occupation')
+        sensitive_columns_list.append(['sex', 'age'])
 
-    file_paths.append('processed_kdd')
-    targets.append('income')
-    sensitive_columns_list.append(['sex', 'race'])
+        file_paths.append('processed_german')
+        targets.append('CREDITRATING')
+        sensitive_columns_list.append(['PersonStatusSex', 'AgeInYears'])
 
-    file_paths.append('processed_law_school')
-    targets.append('pass_bar')
-    sensitive_columns_list.append(['male', 'race'])
+        file_paths.append('processed_kdd')
+        targets.append('income')
+        sensitive_columns_list.append(['sex', 'race'])
 
-    main(file_paths, targets, sensitive_columns_list, num_trials=30, population_size=50, generations=100)
+        file_paths.append('processed_law_school')
+        targets.append('pass_bar')
+        sensitive_columns_list.append(['male', 'race'])
+
+        # Filter datasets if a specific one is provided
+        if args.dataset:
+            try:
+                idx = file_paths.index(args.dataset)
+                file_paths = [file_paths[idx]]
+                targets = [targets[idx]]
+                sensitive_columns_list = [sensitive_columns_list[idx]]
+            except ValueError:
+                print(f"Dataset '{args.dataset}' not found. Available datasets: {', '.join(file_paths)}")
+                exit(1)
+
+        # Run the main function with command-line arguments
+        main(file_paths, targets, sensitive_columns_list,
+             num_trials=args.trials,
+             population_size=args.population,
+             generations=args.generations)
+
