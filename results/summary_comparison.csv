@@ -1,0 +1,9 @@
+Dataset,GA Median IDI,RS Median IDI,Improvement (%),Effect Size,Statistic,p-value,Statistically Significant
+processed_adult,0.4973,0.4137,20.20%,28.78,0.0000e+00,1.8626e-09,Yes
+processed_communities_crime,0.4110,0.0000,inf%,29.16,0.0000e+00,1.8626e-09,Yes
+processed_compas,0.4828,0.2771,74.23%,47.36,0.0000e+00,1.8626e-09,Yes
+processed_credit,0.4959,0.2901,70.93%,87.29,0.0000e+00,1.8626e-09,Yes
+processed_dutch,0.4620,0.0105,4287.36%,40.89,0.0000e+00,1.8626e-09,Yes
+processed_german,0.4994,0.4344,14.94%,41.87,0.0000e+00,1.8626e-09,Yes
+processed_kdd,0.4235,0.0463,814.22%,103.12,0.0000e+00,1.8626e-09,Yes
+processed_law_school,0.4960,0.1797,176.11%,43.45,0.0000e+00,1.8626e-09,Yes
